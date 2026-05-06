@@ -16,6 +16,7 @@ COPY . .
 
 RUN composer install --no-dev --optimize-autoloader
 
+# Create sqlite database
 RUN mkdir -p database
 RUN touch database/database.sqlite
 
@@ -23,7 +24,5 @@ RUN touch database/database.sqlite
 RUN chmod -R 777 storage bootstrap/cache database
 
 EXPOSE 10000
-
-RUN php artisan migrate --force
 
 CMD php artisan serve --host=0.0.0.0 --port=10000
