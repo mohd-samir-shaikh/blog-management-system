@@ -24,4 +24,8 @@ ENV DB_CONNECTION=sqlite
 
 EXPOSE 10000
 
+RUN php artisan migrate --force
+RUN php artisan config:clear
+RUN php artisan cache:clear
+
 CMD php artisan serve --host=0.0.0.0 --port=10000
