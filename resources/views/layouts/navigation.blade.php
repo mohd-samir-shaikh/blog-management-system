@@ -44,9 +44,11 @@
             <!-- Right Side -->
             <div class="hidden sm:flex sm:items-center sm:ms-6 gap-3">
 
+                @auth
                 <span class="text-dark fw-semibold">
-                    {{ Auth::user()->name }}
+                {{ Auth::user()->name }}
                 </span>
+                @endauth
 
                 <a href="{{ route('profile.edit') }}"
                    class="btn btn-outline-secondary btn-sm">
@@ -139,13 +141,15 @@
 
             <div class="px-4">
 
-                <div class="font-medium text-base text-gray-800">
-                    {{ Auth::user()->name }}
-                </div>
+            @auth
+            <div class="font-medium text-base text-gray-800">
+                {{ Auth::user()->name }}
+            </div>
 
-                <div class="font-medium text-sm text-gray-500">
-                    {{ Auth::user()->email }}
-                </div>
+            <div class="font-medium text-sm text-gray-500">
+            {{ Auth::user()->email }}
+            </div>
+            @endauth
 
             </div>
 
