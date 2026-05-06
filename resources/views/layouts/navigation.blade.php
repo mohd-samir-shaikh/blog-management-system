@@ -10,7 +10,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
 
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ url('/') }}">
 
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
 
@@ -21,14 +21,17 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
 
+                    @auth
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         Dashboard
                     </x-nav-link>
+                    @endauth
 
                     <x-nav-link :href="url('/')" :active="request()->is('/')">
                         Home
                     </x-nav-link>
 
+                    @auth
                     <x-nav-link :href="url('/blogs')" :active="request()->is('blogs')">
                         All Blogs
                     </x-nav-link>
@@ -36,6 +39,7 @@
                     <x-nav-link :href="url('/blogs/create')" :active="request()->is('blogs/create')">
                         Create Blog
                     </x-nav-link>
+                    @endauth
 
                 </div>
 
@@ -45,30 +49,38 @@
             <div class="hidden sm:flex sm:items-center sm:ms-6 gap-3">
 
                 @auth
-                <span class="text-dark fw-semibold">
-                {{ Auth::user()->name }}
-                </span>
+
+                    <span class="text-dark fw-semibold">
+                        {{ Auth::user()->name }}
+                    </span>
+
+                    <a href="{{ route('profile.edit') }}"
+                       class="btn btn-outline-secondary btn-sm">
+                        Profile
+                    </a>
+
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+
+                        <button type="submit"
+                                class="btn btn-danger btn-sm">
+                            Logout
+                        </button>
+                    </form>
+
+                @else
+
+                    <a href="{{ route('login') }}"
+                       class="btn btn-outline-primary btn-sm">
+                        Login
+                    </a>
+
+                    <a href="{{ route('register') }}"
+                       class="btn btn-primary btn-sm">
+                        Register
+                    </a>
+
                 @endauth
-
-                <a href="{{ route('profile.edit') }}"
-                   class="btn btn-outline-secondary btn-sm">
-
-                    Profile
-
-                </a>
-
-                <form method="POST" action="{{ route('logout') }}">
-
-                    @csrf
-
-                    <button type="submit"
-                            class="btn btn-danger btn-sm">
-
-                        Logout
-
-                    </button>
-
-                </form>
 
             </div>
 
@@ -118,14 +130,18 @@
 
         <div class="pt-2 pb-3 space-y-1">
 
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+            @auth
+            <x-responsive-nav-link :href="route('dashboard')"
+                                   :active="request()->routeIs('dashboard')">
                 Dashboard
             </x-responsive-nav-link>
+            @endauth
 
             <x-responsive-nav-link :href="url('/')">
                 Home
             </x-responsive-nav-link>
 
+            @auth
             <x-responsive-nav-link :href="url('/blogs')">
                 All Blogs
             </x-responsive-nav-link>
@@ -133,23 +149,23 @@
             <x-responsive-nav-link :href="url('/blogs/create')">
                 Create Blog
             </x-responsive-nav-link>
+            @endauth
 
         </div>
 
         <!-- Responsive User Info -->
+        @auth
         <div class="pt-4 pb-1 border-t border-gray-200">
 
             <div class="px-4">
 
-            @auth
-            <div class="font-medium text-base text-gray-800">
-                {{ Auth::user()->name }}
-            </div>
+                <div class="font-medium text-base text-gray-800">
+                    {{ Auth::user()->name }}
+                </div>
 
-            <div class="font-medium text-sm text-gray-500">
-            {{ Auth::user()->email }}
-            </div>
-            @endauth
+                <div class="font-medium text-sm text-gray-500">
+                    {{ Auth::user()->email }}
+                </div>
 
             </div>
 
@@ -178,6 +194,7 @@
             </div>
 
         </div>
+        @endauth
 
     </div>
 
