@@ -18,6 +18,8 @@ RUN composer install --no-dev --optimize-autoloader
 
 RUN touch database/database.sqlite
 
+RUN chmod -R 777 storage bootstrap/cache database
+
 ENV DB_CONNECTION=sqlite
 
 EXPOSE 10000
