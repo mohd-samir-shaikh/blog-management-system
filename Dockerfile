@@ -23,13 +23,8 @@ RUN touch database/database.sqlite
 # Permissions
 RUN chmod -R 777 storage bootstrap/cache database
 
-# Environment
-ENV DB_CONNECTION=sqlite
-ENV DB_DATABASE=/app/database/database.sqlite
-
 EXPOSE 10000
 
-RUN php artisan key:generate
 RUN php artisan config:clear
 RUN php artisan cache:clear
 RUN php artisan migrate --force
