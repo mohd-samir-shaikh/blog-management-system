@@ -6,8 +6,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     sqlite3 \
     libsqlite3-dev \
-    zip \
-    && docker-php-ext-install pdo pdo_sqlite
+    zip
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
@@ -30,7 +29,6 @@ ENV DB_DATABASE=/app/database/database.sqlite
 
 EXPOSE 10000
 
-# Laravel setup
 RUN php artisan key:generate
 RUN php artisan config:clear
 RUN php artisan cache:clear
