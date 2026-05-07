@@ -20,12 +20,6 @@
             <ul class="navbar-nav me-auto">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/dashboard">
-                        Dashboard
-                    </a>
-                </li>
-
-                <li class="nav-item">
                     <a class="nav-link" href="/">
                         Home
                     </a>
@@ -37,13 +31,25 @@
                     </a>
                 </li>
 
+                @auth
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/dashboard">
+                        Dashboard
+                    </a>
+                </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="/blogs/create">
                         Create Blog
                     </a>
                 </li>
 
+                @endauth
+
             </ul>
+
+            @auth
 
             <div class="d-flex align-items-center text-white">
 
@@ -62,6 +68,22 @@
                 </form>
 
             </div>
+
+            @else
+
+            <div>
+
+                <a href="{{ route('login') }}" class="btn btn-outline-light btn-sm me-2">
+                    Login
+                </a>
+
+                <a href="{{ route('register') }}" class="btn btn-success btn-sm">
+                    Register
+                </a>
+
+            </div>
+
+            @endauth
 
         </div>
 
