@@ -16,12 +16,12 @@ COPY . .
 
 RUN composer install --no-dev --optimize-autoloader
 
-# Create sqlite database
-RUN mkdir -p database
-RUN touch database/database.sqlite
+# Create database folder and sqlite file
+RUN mkdir -p /app/database
+RUN touch /app/database/database.sqlite
 
 # Permissions
-RUN chmod -R 777 storage bootstrap/cache database
+RUN chmod -R 777 storage bootstrap/cache /app/database
 
 RUN php artisan migrate --force
 
