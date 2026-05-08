@@ -1,74 +1,79 @@
 @php
 use Illuminate\Support\Str;
 @endphp
+
 @extends('layouts.frontend')
 
 @section('content')
 
 <div class="container mt-5">
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
+```
+<div class="d-flex justify-content-between align-items-center mb-4">
 
-        <h2>All Blogs</h2>
+    <h2>All Blogs</h2>
 
-        <a href="/blogs/create" class="btn btn-primary">
-            Add Blog
-        </a>
+    <a href="/blogs/create" class="btn btn-primary">
+        Add Blog
+    </a>
+
+</div>
+
+<form action="/blogs" method="GET" class="mb-3">
+
+    <div class="input-group">
+
+        <input
+            type="text"
+            name="search"
+            class="form-control"
+            placeholder="Search blogs..."
+            value="{{ request('search') }}"
+        >
+
+        <button class="btn btn-dark">
+            Search
+        </button>
 
     </div>
 
-    <form action="/blogs" method="GET" class="mb-3">
+</form>
 
-        <div class="input-group">
+<form action="/blogs" method="GET" class="mb-4">
 
-            <input
-                type="text"
-                name="search"
-                class="form-control"
-                placeholder="Search blogs..."
-                value="{{ request('search') }}"
-            >
+    <select
+        name="category"
+        id="categoryFilter"
+        class="form-select"
+    >
 
-            <button class="btn btn-dark">
-                Search
-            </button>
+        <option value="">
+            All Categories
+        </option>
 
-        </div>
+        <option value="Latest Jobs">
+            Latest Jobs
+        </option>
 
-    </form>
+        <option value="Admit Card">
+            Admit Card
+        </option>
 
-    <form action="/blogs" method="GET" class="mb-4">
+        <option value="Results">
+            Results
+        </option>
 
-        <select
-    name="category"
-    id="categoryFilter"
-    class="form-select"
->
+        <option value="News">
+            News
+        </option>
 
-    <option value="">
-        All Categories
-    </option>
+    </select>
 
-    <option value="Latest Jobs">
-        Latest Jobs
-    </option>
+</form>
 
-    <option value="Admit Card">
-        Admit Card
-    </option>
+<div class="row" id="blogData">
 
-    <option value="Results">
-        Results
-    </option>
-
-    <option value="News">
-        News
-    </option>
-
-</select>
-    </form>
-
-    <div class="row" id="blogData">
+    @if($blogs->count() > 0)
 
         @foreach($blogs as $blog)
 
@@ -139,15 +144,30 @@ use Illuminate\Support\Str;
 
         @endforeach
 
-    </div>
+    @else
 
-    <div class="mt-4">
+        <div class="col-12">
 
-        <div class="d-flex justify-content-center mt-4 mb-5">
-    {{ $blogs->onEachSide(1)->links('pagination::bootstrap-5') }}
+            <div class="alert alert-info text-center">
+
+                No blogs found.
+
+            </div>
+
+        </div>
+
+    @endif
+
 </div>
 
+<div class="mt-4">
+
+    <div class="d-flex justify-content-center mt-4 mb-5">
+        {{ $blogs->onEachSide(1)->links('pagination::bootstrap-5') }}
     </div>
+
+</div>
+```
 
 </div>
 

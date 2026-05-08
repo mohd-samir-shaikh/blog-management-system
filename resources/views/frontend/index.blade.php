@@ -4,19 +4,22 @@
 
 <div class="container mt-5">
 
-    <div class="text-center mb-5">
+```
+<div class="text-center mb-5">
 
-        <h1 class="fw-bold">
-            Latest Blogs
-        </h1>
+    <h1 class="fw-bold">
+        Latest Blogs
+    </h1>
 
-        <p class="text-muted">
-            Read latest jobs, admit cards, results and updates
-        </p>
+    <p class="text-muted">
+        Read latest jobs, admit cards, results and updates
+    </p>
 
-    </div>
+</div>
 
-    <div class="row">
+<div class="row">
+
+    @if($blogs->count() > 0)
 
         @foreach($blogs as $blog)
 
@@ -77,7 +80,22 @@
 
         @endforeach
 
-    </div>
+    @else
+
+        <div class="col-12">
+
+            <div class="alert alert-info text-center">
+
+                No blogs available right now.
+
+            </div>
+
+        </div>
+
+    @endif
+
+</div>
+```
 
 </div>
 
