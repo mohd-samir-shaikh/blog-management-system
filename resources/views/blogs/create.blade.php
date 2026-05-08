@@ -1,96 +1,102 @@
-@extends('layouts.frontend')
+@extends('layouts.app')
 
 @section('content')
-<x-app-layout>
 
-<div class="container mt-5">
+<div class="container mt-5 mb-5" style="max-width:900px;">
 
-    <div class="card shadow p-4">
+    <div class="card shadow border-0">
 
-        <h1 class="mb-4">Add Blog</h1>
-        @if ($errors->any())
+        <div class="card-body p-4">
 
-    <div class="alert alert-danger">
+            <h1 class="mb-4 fw-bold">
+                Create Blog
+            </h1>
 
-        <ul class="mb-0">
+            @if ($errors->any())
 
-            @foreach ($errors->all() as $error)
+                <div class="alert alert-danger">
 
-                <li>{{ $error }}</li>
+                    <ul class="mb-0">
 
-            @endforeach
+                        @foreach ($errors->all() as $error)
 
-        </ul>
+                            <li>{{ $error }}</li>
 
-    </div>
+                        @endforeach
 
-@endif
+                    </ul>
 
-        <form action="/blogs" method="POST" enctype="multipart/form-data">
+                </div>
 
-            @csrf
+            @endif
 
-            <div class="mb-3">
+            <form action="/blogs" method="POST" enctype="multipart/form-data">
 
-                <label class="form-label">
-                    Title
-                </label>
+                @csrf
 
-                <input type="text"
-                       name="title"
-                       class="form-control">
+                <div class="mb-3">
 
-            </div>
+                    <label class="form-label">
+                        Blog Title
+                    </label>
 
-            <div class="mb-3">
+                    <input type="text"
+                           name="title"
+                           class="form-control"
+                           required>
 
-                <label class="form-label">
-                    Category
-                </label>
+                </div>
 
-                <select name="category" class="form-select">
+                <div class="mb-3">
 
-    <option value="Latest Jobs">Latest Jobs</option>
+                    <label class="form-label">
+                        Category
+                    </label>
 
-    <option value="Admit Card">Admit Card</option>
+                    <select name="category" class="form-select">
 
-    <option value="Results">Results</option>
+                        <option value="Latest Jobs">Latest Jobs</option>
+                        <option value="Admit Card">Admit Card</option>
+                        <option value="Results">Results</option>
+                        <option value="News">News</option>
 
-    <option value="News">News</option>
+                    </select>
 
-</select>
+                </div>
 
-            </div>
+                <div class="mb-3">
 
-            <div class="mb-3">
+                    <label class="form-label">
+                        Upload Image
+                    </label>
 
-                <label class="form-label">
-                    Image
-                </label>
+                    <input type="file"
+                           name="image"
+                           class="form-control"
+                           required>
 
-                <input type="file"
-                       name="image"
-                       class="form-control">
+                </div>
 
-            </div>
+                <div class="mb-4">
 
-            <div class="mb-3">
+                    <label class="form-label">
+                        Blog Content
+                    </label>
 
-                <label class="form-label">
-                    Content
-                </label>
+                    <textarea name="content"
+                              id="editor"
+                              class="form-control"
+                              rows="10"></textarea>
 
-                <textarea name="content"
-                          id="editor"
-                          class="form-control"></textarea>
+                </div>
 
-            </div>
+                <button class="btn btn-success">
+                    Publish Blog
+                </button>
 
-            <button class="btn btn-success">
-                Save Blog
-            </button>
+            </form>
 
-        </form>
+        </div>
 
     </div>
 
@@ -102,5 +108,4 @@
     CKEDITOR.replace('editor');
 </script>
 
-</x-app-layout>
 @endsection
