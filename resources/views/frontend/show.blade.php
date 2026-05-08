@@ -1,3 +1,7 @@
+@php
+use Illuminate\Support\Facades\Storage;
+@endphp
+
 @extends('layouts.frontend')
 
 @section('content')
@@ -13,7 +17,7 @@
         @if($blog->image)
 
             <img
-                src="{{ asset('storage/' . $blog->image) }}"
+                src="{{ Storage::url($blog->image) }}"
                 class="card-img-top"
                 style="height:450px; object-fit:cover;"
             >
