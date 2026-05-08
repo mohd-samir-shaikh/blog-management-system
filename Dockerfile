@@ -8,6 +8,8 @@ RUN apt-get update && apt-get install -y \
     libsqlite3-dev \
     zip
 
+RUN docker-php-ext-install pdo pdo_sqlite
+
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /app
@@ -16,15 +18,11 @@ COPY . .
 
 RUN composer install --no-dev --optimize-autoloader
 
-# Create database folder and sqlite file
 RUN mkdir -p /app/database
 RUN touch /app/database/database.sqlite
 
-# Permissions
-RUN chmod -R 777 storage bootstrap/cache /app/database
-
-RUN php artisan migrate --force
+RUN chmod -R 777 storage bootstrap/cache database
 
 EXPOSE 10000
 
-CMD php artisan serve --host=0.0.0.0 --port=10000
+CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=10000
