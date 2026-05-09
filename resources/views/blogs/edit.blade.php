@@ -94,7 +94,7 @@
                                 <br>
 
                                 <img
-                                    src="{{ asset('storage/' . $blog->image) }}"
+                                    src="{{ asset($blog->image) }}"
                                     width="250"
                                     class="rounded shadow-sm border"
                                 >
