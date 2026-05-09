@@ -54,8 +54,12 @@ class BlogController extends Controller
 
             $request->image->move(public_path('uploads'), $imageName);
 
+            $imageName = time().'.'.$request->image->extension();
+
+            $request->image->move(public_path('uploads'), $imageName);
+
             $imagePath = 'uploads/'.$imageName;
-        }
+            }
 
         Blog::create([
 

@@ -84,7 +84,7 @@ use Illuminate\Support\Str;
                     @if($blog->image)
 
                         <img
-                            src="{{ Storage::url($blog->image) }}"
+                            src="{{ asset($blog->image) }}"
                             class="card-img-top"
                             style="height:220px; object-fit:cover;"
                         >
