@@ -21,7 +21,11 @@ RUN composer install --no-dev --optimize-autoloader
 RUN mkdir -p /app/database
 RUN touch /app/database/database.sqlite
 
-RUN chmod -R 777 storage bootstrap/cache database
+RUN mkdir -p storage/app/public
+
+RUN php artisan storage:link || true
+
+RUN chmod -R 777 storage bootstrap/cache database public
 
 EXPOSE 10000
 
